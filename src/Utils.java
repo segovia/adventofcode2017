@@ -10,9 +10,13 @@ import static java.util.stream.Collectors.toList;
 class Utils {
 
     static List<String> getInputsFromFiles(Class<?> clazz) throws IOException {
+        return getInputsFromFiles(clazz.getSimpleName());
+    }
+
+    static List<String> getInputsFromFiles(String name) throws IOException {
         return Files
                 .list(Paths.get("resources"))
-                .filter(p -> p.getFileName().toString().startsWith(clazz.getSimpleName()))
+                .filter(p -> p.getFileName().toString().startsWith(name))
                 .sorted()
                 .map(Utils::getFileAsString)
                 .collect(toList());
