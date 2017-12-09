@@ -1,22 +1,23 @@
+package adventofcode.y2017;
+
+import org.junit.Test;
+
+import java.io.IOException;
 import java.util.*;
 
 import static java.util.Arrays.asList;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-public class Advent_06_MemoryReallocation_1 {
+public class D06_MemoryReallocation_1 {
 
-
-    private static final List<String> INPUTS = asList(
-            "0 2 7 0",
-            "10\t3\t15\t10\t5\t15\t5\t15\t9\t2\t5\t8\t5\t2\t3\t6");
-
-
-    public static void main(String[] args) {
-        for (String input : INPUTS) {
-            System.out.println(run(input));
-        }
+    @Test
+    public void test() throws IOException {
+        assertThat(run("0 2 7 0"), is(5L));
+        assertThat(run("10\t3\t15\t10\t5\t15\t5\t15\t9\t2\t5\t8\t5\t2\t3\t6"), is(14029L));
     }
 
-    private static long run(String input) {
+    private long run(String input) {
         int[] nums = Arrays.stream(input.split("\\s")).mapToInt(Integer::parseInt).toArray();
 
         Set<Object> set = new HashSet<>();

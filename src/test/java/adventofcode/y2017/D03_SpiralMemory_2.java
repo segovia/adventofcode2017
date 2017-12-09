@@ -1,23 +1,27 @@
+package adventofcode.y2017;
+
+import org.junit.Test;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class Advent_03_SpiralMemory_2 {
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-    private static final List<String> INPUTS = Arrays.asList(
-            "1",
-            "2",
-            "4",
-            "5",
-            "810",
-            "277678");
+public class D03_SpiralMemory_2 {
 
-    public static void main(String[] args) {
-        for (String input : INPUTS) {
-            System.out.println(run(input));
-        }
+    @Test
+    public void test() throws IOException {
+        assertThat(run("1"), is(2L));
+        assertThat(run("2"), is(4L));
+        assertThat(run("4"), is(5L));
+        assertThat(run("5"), is(10L));
+        assertThat(run("810"), is(880L));
+        assertThat(run("277678"), is(279138L));
     }
 
-    private static long run(String inputStr) {
+    private long run(String inputStr) {
         int input = Integer.parseInt(inputStr);
         int prevLength = 1;
         int[] prev = {1};

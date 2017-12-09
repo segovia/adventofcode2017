@@ -1,16 +1,25 @@
+package adventofcode.y2017;
+
+import adventofcode.Utils;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.util.List;
 
-public class Advent_02_CorruptionChecksum_2 {
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-    public static void main(String[] args) throws IOException {
-        List<String> inputs = Utils.getInputsFromFiles(Advent_02_CorruptionChecksum_2.class);
-        for (String input : inputs) {
-            System.out.println(run(input));
-        }
+public class D02_CorruptionChecksum_2 {
+
+    @Test
+    public void test() throws IOException {
+        List<String> fileInputs = Utils.getInputsFromFiles(D02_CorruptionChecksum_2.class);
+        assertThat(run(fileInputs.get(0)), is(7L));
+        assertThat(run(fileInputs.get(1)), is(9L));
+        assertThat(run(fileInputs.get(2)), is(320L));
     }
 
-    private static long run(String input) {
+    private long run(String input) {
         String[] lines = input.split("\\n");
         Long sum = 0L;
         for (String line : lines) {

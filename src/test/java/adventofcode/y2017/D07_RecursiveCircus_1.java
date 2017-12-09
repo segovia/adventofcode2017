@@ -1,16 +1,24 @@
+package adventofcode.y2017;
+
+import adventofcode.Utils;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.util.*;
 
-public class Advent_07_RecursiveCircus_1 {
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-    public static void main(String[] args) throws IOException {
-        List<String> inputs = Utils.getInputsFromFiles(Advent_07_RecursiveCircus_1.class);
-        for (String input : inputs) {
-            System.out.println(run(input));
-        }
+public class D07_RecursiveCircus_1 {
+
+    @Test
+    public void test() throws IOException {
+        List<String> fileInputs = Utils.getInputsFromFiles(D07_RecursiveCircus_1.class);
+        assertThat(run(fileInputs.get(0)), is("tknk"));
+        assertThat(run(fileInputs.get(1)), is("rqwgj"));
     }
 
-    private static String run(String input) {
+    private String run(String input) {
         Set<String> existingIds = new HashSet<>();
         Set<String> referencedIds = new HashSet<>();
         for (String line : input.split("\\n")) {

@@ -1,17 +1,24 @@
+package adventofcode.y2017;
+
+import adventofcode.Utils;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.util.*;
 
-public class Advent_07_RecursiveCircus_2 {
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-    public static void main(String[] args) throws IOException {
-        String className = Advent_07_RecursiveCircus_2.class.getSimpleName();
-        List<String> inputs = Utils.getInputsFromFiles(className.substring(0, className.length() - 1));
-        for (String input : inputs) {
-            System.out.println(run(input));
-        }
+public class D07_RecursiveCircus_2 {
+
+    @Test
+    public void test() throws IOException {
+        List<String> fileInputs = Utils.getInputsFromFiles(D07_RecursiveCircus_2.class);
+        assertThat(run(fileInputs.get(0)), is(-60L));
+        assertThat(run(fileInputs.get(1)), is(-333L));
     }
 
-    private static long run(String input) {
+    private long run(String input) {
         Map<String, Integer> weightMap = new HashMap<>();
         Map<String, Set<String>> childMap = new LinkedHashMap<>();
         Set<String> referencedIds = new HashSet<>();
