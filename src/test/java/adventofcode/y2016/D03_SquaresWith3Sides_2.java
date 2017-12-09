@@ -16,7 +16,7 @@ public class D03_SquaresWith3Sides_2 {
     public void test() throws IOException {
         assertThat(run("5 10 25\n10 10 10\n3 10 30\n"), is(2));
         List<String> fileInputs = Utils.getInputsFromFiles(D03_SquaresWith3Sides_2.class);
-        assertThat(run(fileInputs.get(0)), is(993));
+        assertThat(run(fileInputs.get(0)), is(1849));
     }
 
     private int run(String input) {
