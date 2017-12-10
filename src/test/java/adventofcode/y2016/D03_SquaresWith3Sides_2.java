@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static adventofcode.Utils.toIntArray;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -43,6 +44,6 @@ public class D03_SquaresWith3Sides_2 {
     }
 
     private int[] readRow(String line) {
-        return Arrays.stream(line.trim().split("\\s+")).mapToInt(Integer::parseInt).toArray();
+        return toIntArray(line.trim().split("\\s+"));
     }
 }
