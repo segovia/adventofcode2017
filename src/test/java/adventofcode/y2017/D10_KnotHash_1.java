@@ -16,7 +16,7 @@ public class D10_KnotHash_1 {
     public void test() throws IOException {
         assertThat(run("3,4,1,5", 5), is(12));
         List<String> fileInputs = Utils.getInputsFromFiles(D10_KnotHash_1.class);
-        assertThat(run(fileInputs.get(0), 256), is("37230"));
+        assertThat(run(fileInputs.get(0), 256), is(37230));
     }
 
 
