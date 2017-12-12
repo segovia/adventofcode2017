@@ -13,17 +13,13 @@ import static java.util.stream.Collectors.toList;
 public class Utils {
 
     public static List<String> getInputsFromFiles(Class<?> clazz) throws IOException {
-        return getInputsFromFiles(getLastPackage(clazz), clazz.getSimpleName().substring(0, clazz.getSimpleName().length() - 5));
+        return getInputsFromFiles(getLastPackage(clazz), clazz.getSimpleName().substring(0, 3));
     }
 
     private static String getLastPackage(Class<?> clazz) {
         String fullName = clazz.getCanonicalName();
         String justPackage = fullName.substring(0, fullName.lastIndexOf('.'));
         return justPackage.substring(justPackage.lastIndexOf('.') + 1, justPackage.length());
-    }
-
-    public static List<String> getInputsFromFiles(String folder, Class<?> clazz) throws IOException {
-        return getInputsFromFiles(folder, clazz.getSimpleName().substring(0, clazz.getSimpleName().length() - 5));
     }
 
     public static List<String> getInputsFromFiles(String folder, String name) throws IOException {
