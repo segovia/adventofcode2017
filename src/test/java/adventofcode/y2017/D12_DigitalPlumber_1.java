@@ -13,31 +13,28 @@ public class D12_DigitalPlumber_1 {
 
     @Test
     public void test() throws IOException {
-        List<String> fileInputs = Utils.getInputsFromFiles(D12_DigitalPlumber_1.class);
-        assertThat(run(fileInputs.get(0)), is(2));
-        assertThat(run(fileInputs.get(1)), is(179));
+        List<String> fileInputs = Utils.getInputsFromFiles(D12_DigitalPlumber_2.class);
+        assertThat(run(fileInputs.get(0)), is(6));
+        assertThat(run(fileInputs.get(1)), is(169));
     }
 
     private int run(String input) {
         String[] lines = input.split("\\n");
         Map<String, String[]> map = new HashMap<>();
-        for (String line : lines) {
+        for (String line : lines){
             String[] parts = line.split(" <-> ");
             map.put(parts[0], parts[1].split(", "));
         }
-        Set<String> visited = new HashSet<>();
+        Set<String> connected = new HashSet<>();
         Deque<String> toVisit = new ArrayDeque<>();
-        int groupCount = 0;
-        for (String id : map.keySet()) {
-            if (visited.contains(id)) continue;
-            toVisit.add(id);
-            while (!toVisit.isEmpty()) {
-                String cur = toVisit.pop();
-                if (!visited.add(cur)) continue;
-                toVisit.addAll(Arrays.asList(map.get(cur)));
+        toVisit.add("0");
+        while(!toVisit.isEmpty()) {
+            String cur = toVisit.pop();
+            if (!connected.add(cur)) {
+                continue;
             }
-            ++groupCount;
+            toVisit.addAll(Arrays.asList(map.get(cur)));
         }
-        return groupCount;
+        return connected.size();
     }
 }
