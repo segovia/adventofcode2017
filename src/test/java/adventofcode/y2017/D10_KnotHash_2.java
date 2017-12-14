@@ -4,7 +4,6 @@ import adventofcode.Utils;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -25,7 +24,7 @@ public class D10_KnotHash_2 {
     }
 
 
-    private String run(String input) {
+    public String run(String input) {
         int[] list = makeInitialList();
         int[] actions = toAsciiIntArray(input);
         doKnotting(list, actions);
