@@ -13,8 +13,6 @@ import static org.junit.Assert.assertThat;
 
 public class D14_DiskDefragmentation {
 
-    private static final int LIST_SIZE = 256;
-
     private final D10_KnotHash_2 knotHash = new D10_KnotHash_2();
 
     @Test
