@@ -10,9 +10,6 @@ import static org.junit.Assert.assertThat;
 
 public class D09_ExplosivesInCyberSpace_1 {
 
-    private static final int HEIGHT = 6;
-    private static final int WIDTH = 50;
-
     @Test
     public void test() throws Exception {
         assertThat(run("ADVENT"), is(6));
