@@ -19,67 +19,79 @@ public class D10_BalanceBots {
     }
 
     private String run(String input, int... bots) throws Exception {
-        Map<Integer, Set<Integer>> botValMap = new HashMap<>();
-        Map<Integer, List<Integer>> botGiveMap = new HashMap<>();
+        Map<Integer, Bot> botMap = new HashMap<>();
         String[] lines = input.split("\\n");
         for (String line : lines) {
             String[] tokens = line.split("\\s");
             if ("value".equals(tokens[0])) {
                 int val = Integer.parseInt(tokens[1]);
-                int bot = Integer.parseInt(tokens[5]);
-                botValMap.computeIfAbsent(bot, k -> new TreeSet<>()).add(val);
+                int botId = Integer.parseInt(tokens[5]);
+                botMap.computeIfAbsent(botId, Bot::new).addVal(val);
             } else {
-                int bot = Integer.parseInt(tokens[1]);
-                List<Integer> givesTo = botGiveMap.computeIfAbsent(bot, k -> new ArrayList<>());
-
-                int loTarget = Integer.parseInt(tokens[6]);
-                if ("bot".equals(tokens[5])) givesTo.add(loTarget);
-                else givesTo.add(-loTarget - 1);
-
-                int hiTarget = Integer.parseInt(tokens[11]);
-                if ("bot".equals(tokens[10])) givesTo.add(hiTarget);
-                else givesTo.add(-hiTarget - 1);
+                int botId = Integer.parseInt(tokens[1]);
+                Bot bot = botMap.computeIfAbsent(botId, Bot::new);
+                bot.setGive(true, "bot".equals(tokens[5]), Integer.parseInt(tokens[6]));
+                bot.setGive(false, "bot".equals(tokens[10]), Integer.parseInt(tokens[11]));
             }
         }
 
         Set<Integer> visited = new HashSet<>();
-        Deque<Integer> queue = new ArrayDeque<>(botValMap.entrySet().stream()
-                .filter(e -> e.getValue().size() == 2)
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList()));
+        Deque<Bot> queue = new ArrayDeque<>(botMap.values().stream().filter(Bot::hasBothVals).collect(Collectors.toList()));
         int answer = -1;
         while (!queue.isEmpty()) {
-            Integer cur = queue.poll();
-            if (visited.contains(cur)) continue;
-            visited.add(cur);
-            Iterator<Integer> valsIterator = botValMap.get(cur).iterator();
-            int lo = valsIterator.next();
-            int hi = valsIterator.next();
-            if (lo == bots[0] && hi == bots[1]) answer = cur;
+            Bot cur = queue.poll();
+            if (visited.contains(cur.id)) continue;
+            visited.add(cur.id);
+            if (cur.loVal == bots[0] && cur.hiVal == bots[1]) answer = cur.id;
+            addVal(botMap, cur.loBot, cur.loVal, queue);
+            addVal(botMap, cur.hiBot, cur.hiVal, queue);
 
-            List<Integer> receives = botGiveMap.get(cur);
-            if (receives == null) continue;
-            if (receives.get(0) != null) {
-                Set<Integer> valSet = botValMap.computeIfAbsent(receives.get(0), k -> new TreeSet<>());
-                valSet.add(lo);
-                if (valSet.size() == 2) queue.add(receives.get(0));
-            }
-            if (receives.get(1) != null) {
-                Set<Integer> valSet = botValMap.computeIfAbsent(receives.get(1), k -> new TreeSet<>());
-                valSet.add(hi);
-                if (valSet.size() == 2) queue.add(receives.get(1));
-            }
         }
         List<Integer> outputVals = new ArrayList<>();
-        outputVals.addAll(botValMap.get(-1));
-        outputVals.addAll(botValMap.get(-2));
-        outputVals.addAll(botValMap.get(-3));
-        int mult = 1;
-        for (Integer val : outputVals) {
-            mult *= val;
+        outputVals.add(botMap.get(-1).loVal);
+        outputVals.add(botMap.get(-2).loVal);
+        outputVals.add(botMap.get(-3).loVal);
+        int product = 1;
+        for (Integer val : outputVals) product *= val;
+        return answer + " - " + product;
+    }
+
+    private void addVal(Map<Integer, Bot> botMap, Integer botId, int val, Deque<Bot> queue) {
+        if (botId == null) return;
+        Bot bot = botMap.computeIfAbsent(botId, Bot::new);
+        bot.addVal(val);
+        if (bot.hasBothVals()) queue.add(bot);
+    }
+
+    private static class Bot {
+        int id;
+        Integer loBot;
+        Integer hiBot;
+        Integer loVal;
+        Integer hiVal;
+
+        Bot(int id) {
+            this.id = id;
         }
 
-        return answer + " - " + mult;
+        void addVal(int val) {
+            if (loVal == null || loVal > val) {
+                hiVal = loVal;
+                loVal = val;
+            } else {
+                hiVal = val;
+            }
+        }
+
+        void setGive(boolean isLo, boolean isBot, int botId) {
+            int calcBotId = isBot ? botId : -botId - 1;
+            if (isLo) loBot = calcBotId;
+            else hiBot = calcBotId;
+        }
+
+        boolean hasBothVals() {
+            return loVal != null && hiVal != null;
+        }
     }
 
 }
