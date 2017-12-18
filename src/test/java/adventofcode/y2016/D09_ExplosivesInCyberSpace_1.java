@@ -20,7 +20,7 @@ public class D09_ExplosivesInCyberSpace_1 {
         assertThat(run("X(8x2)(3x3)ABCY"), is(18));
 
         List<String> fileInputs = Utils.getInputsFromFiles(D09_ExplosivesInCyberSpace_1.class);
-        assertThat(run(fileInputs.get(0)), is(6));
+        assertThat(run(fileInputs.get(0)), is(74532));
     }
 
     private int run(String input) throws Exception {
