@@ -44,9 +44,15 @@ public class Utils {
     public static int[] toIntArray(String[] nums) {
         return Arrays.stream(nums).mapToInt(Integer::parseInt).toArray();
     }
+
     public static long[] toLongArray(String[] nums) {
         return Arrays.stream(nums).mapToLong(Long::parseLong).toArray();
     }
 
-
+    public static void print(char[][] matrix) {
+        for (char[] line : matrix) {
+            for (char c : line) System.out.print(c);
+            System.out.println();
+        }
+    }
 }
