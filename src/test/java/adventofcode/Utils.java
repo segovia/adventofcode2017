@@ -44,5 +44,9 @@ public class Utils {
     public static int[] toIntArray(String[] nums) {
         return Arrays.stream(nums).mapToInt(Integer::parseInt).toArray();
     }
+    public static long[] toLongArray(String[] nums) {
+        return Arrays.stream(nums).mapToLong(Long::parseLong).toArray();
+    }
+
 
 }
