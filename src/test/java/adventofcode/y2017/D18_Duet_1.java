@@ -94,12 +94,22 @@ public class D18_Duet_1 {
 
         @Override
         public String toString() {
-            return opType.name().toLowerCase() + " " + (firstVal != null ? firstVal : firstReg) + (secondVal == null && secondReg == null ? "" : " " + (secondVal != null ? secondVal : secondReg));
+            StringBuilder sb = new StringBuilder();
+            sb.append(opType.name().toLowerCase());
+            sb.append(" ");
+            if (firstVal != null) sb.append(firstVal);
+            else sb.append(firstReg);
+            if (secondVal != null || secondReg != null) {
+                sb.append(" ");
+                if (secondVal != null) sb.append(secondVal);
+                else sb.append(secondReg);
+            }
+            return sb.toString();
         }
     }
 
     enum OpType {
-        SND, SET, ADD, MUL, MOD, RCV, JGZ;
+        SND, SET, ADD, MUL, MOD, RCV, JGZ, SUB, JNZ;
 
         static OpType get(String op) {
             for (OpType opType : OpType.values()) if (opType.name().equalsIgnoreCase(op)) return opType;

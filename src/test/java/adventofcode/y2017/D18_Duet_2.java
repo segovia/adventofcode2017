@@ -1,6 +1,7 @@
 package adventofcode.y2017;
 
 import adventofcode.Utils;
+import adventofcode.y2017.D18_Duet_1.Op;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class D18_Duet_2 {
 
     private static class Program {
         long[] regs = new long[26];
-        D18_Duet_1.Op[] ops;
+        Op[] ops;
         int opIdx = 0;
         Deque<Long> thisQueue;
         Deque<Long> otherQueue;
@@ -55,7 +56,7 @@ public class D18_Duet_2 {
 
         private long run() {
             while (opIdx < ops.length && opIdx >= 0) {
-                D18_Duet_1.Op op = ops[opIdx];
+                Op op = ops[opIdx];
                 switch (op.opType) {
                     case SND:
                         otherQueue.add(op.getFirstVal(regs));
