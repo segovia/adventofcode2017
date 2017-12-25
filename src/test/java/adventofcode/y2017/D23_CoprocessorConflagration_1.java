@@ -1,13 +1,13 @@
 package adventofcode.y2017;
 
+import adventofcode.AssemblyOp;
 import adventofcode.Utils;
-import adventofcode.y2017.D18_Duet_1.Op;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.List;
 
-import static adventofcode.y2017.D18_Duet_1.toOps;
+import static adventofcode.AssemblyOp.toOps;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -27,7 +27,7 @@ public class D23_CoprocessorConflagration_1 {
 
     private static class Program {
         long[] regs = new long[26];
-        Op[] ops;
+        AssemblyOp[] ops;
         int opIdx = 0;
         long mulCount = 0;
 
@@ -38,8 +38,8 @@ public class D23_CoprocessorConflagration_1 {
 
         private void run() {
             while (opIdx < ops.length && opIdx >= 0) {
-                Op op = ops[opIdx];
-                switch (op.opType) {
+                AssemblyOp op = ops[opIdx];
+                switch (op.type) {
                     case SET:
                         regs[op.firstReg - 'a'] = op.getSecondVal(regs);
                         break;

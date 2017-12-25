@@ -1,7 +1,7 @@
 package adventofcode.y2017;
 
+import adventofcode.AssemblyOp;
 import adventofcode.Utils;
-import adventofcode.y2017.D18_Duet_1.Op;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
-import static adventofcode.y2017.D18_Duet_1.toOps;
+import static adventofcode.AssemblyOp.toOps;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -41,7 +41,7 @@ public class D18_Duet_2 {
 
     private static class Program {
         long[] regs = new long[26];
-        Op[] ops;
+        AssemblyOp[] ops;
         int opIdx = 0;
         Deque<Long> thisQueue;
         Deque<Long> otherQueue;
@@ -56,8 +56,8 @@ public class D18_Duet_2 {
 
         private long run() {
             while (opIdx < ops.length && opIdx >= 0) {
-                Op op = ops[opIdx];
-                switch (op.opType) {
+                AssemblyOp op = ops[opIdx];
+                switch (op.type) {
                     case SND:
                         otherQueue.add(op.getFirstVal(regs));
                         ++sendCount;
