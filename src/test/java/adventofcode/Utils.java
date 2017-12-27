@@ -1,9 +1,12 @@
 package adventofcode;
 
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,5 +57,21 @@ public class Utils {
             for (char c : line) System.out.print(c);
             System.out.println();
         }
+    }
+
+
+    private static MessageDigest MD5 = initMD5();
+
+    private static MessageDigest initMD5() {
+        try {
+            return MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String doMD5(String input) throws Exception {
+        byte[] bytesOfMessage = input.getBytes("UTF-8");
+        return DatatypeConverter.printHexBinary(MD5.digest(bytesOfMessage)).toLowerCase();
     }
 }
