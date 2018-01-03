@@ -58,10 +58,7 @@ public class D24_AirDuctSpelunking {
     }
 
     private int[][] findDistMap(int width, char[] map, int digits) {
-        int[] position = new int[digits];
-        for (int i = 0; i < map.length; i++) if (Character.isDigit(map[i])) position[map[i] - '0'] = i;
-
-        int height = map.length / width;
+        int[] position = getDigitPositions(map, digits);
         int[][] distMap = new int[digits][digits];
         for (int idx = 0; idx < digits - 1; idx++) {
             boolean[] visited = new boolean[map.length];
@@ -80,18 +77,21 @@ public class D24_AirDuctSpelunking {
                         distMap[idx][curIdx] = dist;
                         distMap[curIdx][idx] = dist;
                     }
-
-                    int curI = cur / width;
-                    int curJ = cur % width;
-                    if (curI > 0) nextBorder.add(cur - width);
-                    if (curI < height - 1) nextBorder.add(cur + width);
-                    if (curJ > 0) nextBorder.add(cur - 1);
-                    if (curJ < width - 1) nextBorder.add(cur + 1);
+                    nextBorder.add(cur - width);
+                    nextBorder.add(cur + width);
+                    nextBorder.add(cur - 1);
+                    nextBorder.add(cur + 1);
                 }
                 ++dist;
             }
         }
         return distMap;
+    }
+
+    private int[] getDigitPositions(char[] map, int digits) {
+        int[] position = new int[digits];
+        for (int i = 0; i < map.length; i++) if (Character.isDigit(map[i])) position[map[i] - '0'] = i;
+        return position;
     }
 
     private char[] linearizeMap(String[] lines) {
