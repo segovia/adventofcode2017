@@ -57,19 +57,19 @@ public class D23_SafeCracking {
         return regs[0];
     }
 
-    private void doMul(long[] regs, AssemblyOp op) {
+    static void doMul(long[] regs, AssemblyOp op) {
         regs[op.firstReg - 'a'] *= op.getSecondVal(regs);
     }
 
-    private void doAdd(long[] regs, AssemblyOp op) {
+    static void doAdd(long[] regs, AssemblyOp op) {
         regs[op.firstReg - 'a'] += op.getSecondVal(regs);
     }
 
-    private void doDec(long[] regs, AssemblyOp op) {
+    static void doDec(long[] regs, AssemblyOp op) {
         regs[op.firstReg - 'a']--;
     }
 
-    private void doTgl(long[] regs, int opIdx, AssemblyOp[] ops) {
+    static void doTgl(long[] regs, int opIdx, AssemblyOp[] ops) {
         AssemblyOp tglOp = ops[opIdx];
         int val = (int) tglOp.getFirstVal(regs) + opIdx;
         if (val >= ops.length) return;
@@ -95,16 +95,16 @@ public class D23_SafeCracking {
         }
     }
 
-    private void doInc(long[] regs, AssemblyOp op) {
+    static void doInc(long[] regs, AssemblyOp op) {
         regs[op.firstReg - 'a']++;
     }
 
-    private void doCpy(long[] regs, AssemblyOp op) {
+    static void doCpy(long[] regs, AssemblyOp op) {
         if (op.secondReg == null) return;
         regs[op.secondReg - 'a'] = op.getFirstVal(regs);
     }
 
-    private int doJnz(long[] regs, int opIdx, AssemblyOp op) {
+    static int doJnz(long[] regs, int opIdx, AssemblyOp op) {
         if (op.getFirstVal(regs) != 0) return opIdx + (int) op.getSecondVal(regs) - 1;
         return opIdx;
     }
