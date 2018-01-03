@@ -4,7 +4,6 @@ import adventofcode.Utils;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -16,6 +15,7 @@ public class D24_AirDuctSpelunking {
     public void test() throws Exception {
         List<String> fileInputs = Utils.getInputsFromFiles(D24_AirDuctSpelunking.class);
         assertThat(run(fileInputs.get(0), false), is(14));
+        assertThat(run(fileInputs.get(0), true), is(20));
         assertThat(run(fileInputs.get(1), false), is(462));
         assertThat(run(fileInputs.get(1), true), is(676));
     }
@@ -36,10 +36,8 @@ public class D24_AirDuctSpelunking {
     }
 
     private int shortestPath(int[][] distMap, int[] pathArray, int depth, int bestCost, int pathCost, boolean returnToZero) {
-        if (depth == pathArray.length){
-            System.out.println(Arrays.toString(pathArray));
+        if (depth == pathArray.length)
             return Math.min(pathCost + (returnToZero ? distMap[pathArray[0]][pathArray[depth - 1]] : 0), bestCost);
-        }
 
         int curBestCost = bestCost;
         int maxSwapTarget = depth == 0 ? 0 : pathArray.length - depth - 1;
