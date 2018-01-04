@@ -22,7 +22,7 @@ public class D25_ClockSignal_1 {
         assertThat(run(fileInputs.get(0), 3), is("111011111001"));
 
         // answer found by reducing the code to what is found in D25_ClockSignal_2
-        assertThat(run(fileInputs.get(0), 182), is("010101010101"));
+        assertThat(run(fileInputs.get(0), 0xaaa - 2548 /* 182 */), is("010101010101"));
     }
 
     private String run(String input, int aVal) throws Exception {
