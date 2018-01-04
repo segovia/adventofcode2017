@@ -17,7 +17,7 @@ public class D02_IWasToldThereWouldBeNoMath_2 {
         assertThat(run("2x3x4"), is(34));
         assertThat(run("1x1x10"), is(14));
         List<String> fileInputs = Utils.getInputsFromFiles(D02_IWasToldThereWouldBeNoMath_2.class);
-        assertThat(run(fileInputs.get(0)), is(1586300));
+        assertThat(run(fileInputs.get(0)), is(3737498));
     }
 
     private int run(String input) {
