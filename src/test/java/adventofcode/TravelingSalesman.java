@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static adventofcode.Utils.swap;
 import static org.hamcrest.core.Is.is;
 
 public class TravelingSalesman {
@@ -72,9 +73,4 @@ public class TravelingSalesman {
         return minDist;
     }
 
-    private void swap(int[] arr, int a, int b) {
-        int aux = arr[a];
-        arr[a] = arr[b];
-        arr[b] = aux;
-    }
 }

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static adventofcode.Utils.swap;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -64,9 +65,4 @@ public class D09_AllInASingleNight {
         return bestDist;
     }
 
-    private void swap(int[] arr, int a, int b) {
-        int aux = arr[a];
-        arr[a] = arr[b];
-        arr[b] = aux;
-    }
 }

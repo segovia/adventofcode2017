@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static adventofcode.Utils.swap;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -49,13 +50,6 @@ public class D24_AirDuctSpelunking {
             swap(pathArray, depth, depth + i);
         }
         return minDist;
-    }
-
-    private void swap(int[] array, int a, int b) {
-        if (a == b) return;
-        int aux = array[a];
-        array[a] = array[b];
-        array[b] = aux;
     }
 
     private int[][] findDistMap(int width, char[] map, int digits) {
