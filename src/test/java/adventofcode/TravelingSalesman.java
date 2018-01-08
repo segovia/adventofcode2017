@@ -1,4 +1,4 @@
-package adventofcode.y2015;
+package adventofcode;
 
 import org.junit.Assert;
 import org.junit.Test;
