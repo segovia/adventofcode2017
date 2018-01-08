@@ -32,22 +32,23 @@ public class D24_AirDuctSpelunking {
         int[] pathArray = new int[digits];
         for (int i = 0; i < pathArray.length; i++) pathArray[i] = i;
 
-        return shortestPath(distMap, pathArray, 0, Integer.MAX_VALUE, 0, returnToZero);
+        return shortestPath(distMap, pathArray, 0, returnToZero);
     }
 
-    private int shortestPath(int[][] distMap, int[] pathArray, int depth, int bestCost, int pathCost, boolean returnToZero) {
+    private int shortestPath(int[][] distMap, int[] pathArray, int depth, boolean returnToZero) {
         if (depth == pathArray.length)
-            return Math.min(pathCost + (returnToZero ? distMap[pathArray[0]][pathArray[depth - 1]] : 0), bestCost);
+            return returnToZero ? distMap[pathArray[0]][pathArray[depth - 1]] : 0;
 
-        int curBestCost = bestCost;
+        int minDist = Integer.MAX_VALUE;
         int maxSwapTarget = depth == 0 ? 0 : pathArray.length - depth - 1;
         for (int i = 0; i <= maxSwapTarget; i++) {
             swap(pathArray, depth, depth + i);
-            int nextPathCost = pathCost + (depth == 0 ? 0 : distMap[pathArray[depth]][pathArray[depth - 1]]);
-            curBestCost = shortestPath(distMap, pathArray, depth + 1, curBestCost, nextPathCost, returnToZero);
+            int dist = depth == 0 ? 0 : distMap[pathArray[depth]][pathArray[depth - 1]];
+            dist += shortestPath(distMap, pathArray, depth + 1, returnToZero);
+            minDist = Math.min(minDist, dist);
             swap(pathArray, depth, depth + i);
         }
-        return curBestCost;
+        return minDist;
     }
 
     private void swap(int[] array, int a, int b) {
