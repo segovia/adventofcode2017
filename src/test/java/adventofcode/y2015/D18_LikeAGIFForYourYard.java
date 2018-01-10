@@ -17,7 +17,7 @@ public class D18_LikeAGIFForYourYard {
         assertThat(run(fileInputs.get(0), 4, false), is(4));
         assertThat(run(fileInputs.get(1), 100, false), is(1061));
         assertThat(run(fileInputs.get(0), 4, true), is(14));
-        assertThat(run(fileInputs.get(1), 100, true), is(1061));
+        assertThat(run(fileInputs.get(1), 100, true), is(1006));
     }
 
     private int run(String input, int steps, boolean stuckLights) {
@@ -36,16 +36,7 @@ public class D18_LikeAGIFForYourYard {
         for (int step = 0; step < steps; step++) {
             for (int i = 0; i < len; i++) {
                 for (int j = 0; j < len; j++) {
-                    int neighborOnCount = 0;
-                    if (safeOn(lights, i - 1, j - 1)) neighborOnCount++;
-                    if (safeOn(lights, i - 1, j)) neighborOnCount++;
-                    if (safeOn(lights, i - 1, j + 1)) neighborOnCount++;
-                    if (safeOn(lights, i, j + 1)) neighborOnCount++;
-                    if (safeOn(lights, i + 1, j + 1)) neighborOnCount++;
-                    if (safeOn(lights, i + 1, j)) neighborOnCount++;
-                    if (safeOn(lights, i + 1, j - 1)) neighborOnCount++;
-                    if (safeOn(lights, i, j - 1)) neighborOnCount++;
-
+                    int neighborOnCount = countNeighbors(lights, i, j);
                     next[i][j] = (lights[i][j] && neighborOnCount >= 2 && neighborOnCount <= 3)
                             || (!lights[i][j] && neighborOnCount == 3);
                 }
@@ -64,6 +55,17 @@ public class D18_LikeAGIFForYourYard {
             }
         }
         return count;
+    }
+
+    private int countNeighbors(boolean[][] lights, int i, int j) {
+        int neighborOnCount = 0;
+        for (int k = -1; k <= 1; k++) {
+            for (int l = -1; l <= 1; l++) {
+                if (k == 0 && l == 0) continue;
+                if (safeOn(lights, i + k, j + l)) neighborOnCount++;
+            }
+        }
+        return neighborOnCount;
     }
 
     private void activateStuckLights(boolean[][] lights) {
