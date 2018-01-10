@@ -59,6 +59,13 @@ public class Utils {
         }
     }
 
+    public static void print(boolean[][] matrix) {
+        for (boolean[] line : matrix) {
+            for (boolean b : line) System.out.print(b ? '#' : '.');
+            System.out.println();
+        }
+    }
+
 
     private static MessageDigest MD5 = initMD5();
 
