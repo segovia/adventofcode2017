@@ -3,12 +3,11 @@ package adventofcode.y2015;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class RPGSimulator20XX {
+public class D21_RPGSimulator20XX {
 
     @Test
     public void test() throws IOException {
@@ -17,30 +16,30 @@ public class RPGSimulator20XX {
     }
 
     private int run(Entity boss, int hp, boolean question1) {
-        Item[] weapons = Arrays.asList(
+        Item[] weapons = new Item[]{
                 new Item("Dagger", 8, 4, 0),
                 new Item("Shortsword", 10, 5, 0),
                 new Item("Warhammer", 25, 6, 0),
                 new Item("Longsword", 40, 7, 0),
                 new Item("Greataxe", 74, 8, 0)
-        ).toArray(new Item[0]);
+        };
 
-        Item[] armor = Arrays.asList(
+        Item[] armor = new Item[]{
                 new Item("Leather", 13, 0, 1),
                 new Item("Chainmail", 31, 0, 2),
                 new Item("Splintmail", 53, 0, 3),
                 new Item("Bandedmail", 75, 0, 4),
                 new Item("Platemail", 102, 0, 5)
-        ).toArray(new Item[0]);
+        };
 
-        Item[] rings = Arrays.asList(
+        Item[] rings = new Item[]{
                 new Item("Damage +1", 25, 1, 0),
                 new Item("Damage +2", 50, 2, 0),
                 new Item("Damage +3", 100, 3, 0),
                 new Item("Defense +1", 20, 0, 1),
                 new Item("Defense +2", 40, 0, 2),
                 new Item("Defense +3", 80, 0, 3)
-        ).toArray(new Item[0]);
+        };
 
         return recurse(weapons, armor, rings, new Entity("Person", 0, 0, 0, hp), boss, 0, question1);
     }
