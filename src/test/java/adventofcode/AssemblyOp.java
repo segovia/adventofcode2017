@@ -2,7 +2,7 @@ package adventofcode;
 
 public class AssemblyOp {
     public enum Type {
-        SND, SET, ADD, MUL, MOD, RCV, JGZ, SUB, JNZ, CPY, INC, DEC, TGL, OUT;
+        SND, SET, ADD, MUL, MOD, RCV, JGZ, SUB, JNZ, CPY, INC, DEC, TGL, OUT, TPL, JMP, JIO, JIE, HLF;
 
         static Type get(String op) {
             for (Type type : Type.values()) if (type.name().equalsIgnoreCase(op)) return type;
@@ -55,7 +55,7 @@ public class AssemblyOp {
     public static AssemblyOp[] toOps(String[] opStr) {
         AssemblyOp[] ops = new AssemblyOp[opStr.length];
         for (int i = 0; i < opStr.length; i++) {
-            String[] tokens = opStr[i].split("\\s");
+            String[] tokens = opStr[i].split(",?\\s\\+?");
             ops[i] = new AssemblyOp(tokens[0], tokens[1], tokens.length > 2 ? tokens[2] : null);
         }
         return ops;
