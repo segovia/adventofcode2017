@@ -59,6 +59,24 @@ public class Utils {
         }
     }
 
+    public static void print(int[][] matrix, int width) {
+        for (int[] line : matrix) {
+            for (int i : line) {
+                System.out.print(String.format("%" + width + "d", i));
+            }
+            System.out.println();
+        }
+    }
+
+    public static void print(long[][] matrix, int width) {
+        for (long[] line : matrix) {
+            for (long i : line) {
+                System.out.print(String.format("%" + width + "d", i));
+            }
+            System.out.println();
+        }
+    }
+
     public static void print(boolean[][] matrix) {
         for (boolean[] line : matrix) {
             for (boolean b : line) System.out.print(b ? '#' : '.');
