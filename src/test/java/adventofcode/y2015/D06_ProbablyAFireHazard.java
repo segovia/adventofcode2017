@@ -9,7 +9,7 @@ import java.util.List;
 import static adventofcode.Utils.toIntArray;
 import static adventofcode.y2015.D06_ProbablyAFireHazard.Mode.*;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class D06_ProbablyAFireHazard {
 

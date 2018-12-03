@@ -9,7 +9,7 @@ import java.util.List;
 import static adventofcode.AssemblyOp.toOps;
 import static adventofcode.y2016.D23_SafeCracking.*;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class D25_ClockSignal_1 {
 

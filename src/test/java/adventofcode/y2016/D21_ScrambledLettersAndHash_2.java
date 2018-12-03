@@ -7,7 +7,7 @@ import java.util.List;
 
 import static adventofcode.y2016.D21_ScrambledLettersAndHash_1.*;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class D21_ScrambledLettersAndHash_2 {
 

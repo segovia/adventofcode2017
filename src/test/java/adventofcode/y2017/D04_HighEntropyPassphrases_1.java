@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class D04_HighEntropyPassphrases_1 {
 

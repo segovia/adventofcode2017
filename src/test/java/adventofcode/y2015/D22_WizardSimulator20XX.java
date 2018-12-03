@@ -7,7 +7,7 @@ import java.io.IOException;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class D22_WizardSimulator20XX {
 

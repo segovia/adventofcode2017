@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static adventofcode.Utils.doMD5;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class D05_HowAboutANiceGameOfChess_1 {
 

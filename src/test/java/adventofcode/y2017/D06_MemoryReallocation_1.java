@@ -5,9 +5,8 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.*;
 
-import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class D06_MemoryReallocation_1 {
 

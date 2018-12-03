@@ -10,7 +10,7 @@ import java.util.Set;
 
 import static adventofcode.y2016.D13_AMazeOfTwistyLittleCubicles_1.addNext;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class D13_AMazeOfTwistyLittleCubicles_2 {
 
