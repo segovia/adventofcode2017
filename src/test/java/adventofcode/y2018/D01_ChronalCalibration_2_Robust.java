@@ -6,9 +6,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.*;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.assertThat;
 
 public class D01_ChronalCalibration_2_Robust {
 
