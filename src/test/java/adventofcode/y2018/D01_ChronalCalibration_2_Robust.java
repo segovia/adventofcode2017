@@ -27,8 +27,8 @@ public class D01_ChronalCalibration_2_Robust {
     private Long run(String input) {
         long[] nums = Arrays.
                 stream(input.split("\\s+")).
-                mapToLong(Long::parseLong)
-                .toArray();
+                mapToLong(Long::parseLong).
+                toArray();
 
         Set<Long> seen = new LinkedHashSet<>();
         Long cur = 0L;
