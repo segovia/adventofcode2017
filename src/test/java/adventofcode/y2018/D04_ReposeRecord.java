@@ -10,7 +10,7 @@ import static java.util.Comparator.comparing;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class D04_ReposeRecord_1 {
+public class D04_ReposeRecord {
 
     @Test
     public void test() throws IOException {
