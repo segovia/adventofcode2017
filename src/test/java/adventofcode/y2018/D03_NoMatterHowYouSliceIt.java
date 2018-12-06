@@ -58,11 +58,9 @@ public class D03_NoMatterHowYouSliceIt {
     private Integer[][] makeScreen(List<Rectangle> rects) {
         int maxWidth = 0;
         int maxHeight = 0;
-        int maxId = 0;
         for (Rectangle rect : rects) {
             maxWidth = Math.max(maxWidth, rect.left + rect.width);
             maxHeight = Math.max(maxHeight, rect.top + rect.height);
-            maxId = Math.max(maxId, rect.id);
         }
         return new Integer[maxHeight][maxWidth];
     }
