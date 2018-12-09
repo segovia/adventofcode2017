@@ -12,9 +12,6 @@ import static org.hamcrest.core.Is.is;
 
 public class D07_TheSumOfItsParts_2 {
 
-    public static final int START = 0;
-    public static final int END = 500;
-
     @Test
     public void test() throws IOException {
         String exampleInput = "Step C must be finished before step A can begin.\n" +
