@@ -13,7 +13,7 @@ import java.util.function.BiConsumer;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class D16_ChronalClassification_1 {
+public class D16_ChronalClassification {
 
     @Test
     public void test() throws IOException {
