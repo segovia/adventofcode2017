@@ -4,7 +4,10 @@ import org.junit.Test;
 import segovia.adventofcode.Utils;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -27,63 +30,44 @@ public class D20_ARegularMap {
     private String run(String input) {
         char[][] map = new char[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++) for (int j = 0; j < SIZE; j++) map[i][j] = ' ';
-        Deque<State> q = new ArrayDeque<>();
-        q.push(new State(SIZE / 2, SIZE / 2, 1));
-        map[SIZE / 2][SIZE / 2] = 'X';
-        Set<State> processed = new HashSet<>();
-        while (!q.isEmpty()) {
-            State s = q.poll();
-            if (!processed.add(s)) continue;
-            getSurrondingPositions(s.p).forEach(p -> {
-                if ((p.i == s.p.i || p.j == s.p.j) && map[p.i][p.j] == ' ') map[p.i][p.j] = '?';
-                else if ((p.i != s.p.i && p.j != s.p.j)) map[p.i][p.j] = '#';
-            });
-            if (input.charAt(s.regexIndex) == 'N') {
-                q.add(new State(s.p.i - 2, s.p.j, s.regexIndex + 1));
-                map[s.p.i - 1][s.p.j] = '-';
-            } else if (input.charAt(s.regexIndex) == 'E') {
-                q.add(new State(s.p.i, s.p.j + 2, s.regexIndex + 1));
-                map[s.p.i][s.p.j + 1] = '|';
-            } else if (input.charAt(s.regexIndex) == 'S') {
-                q.add(new State(s.p.i + 2, s.p.j, s.regexIndex + 1));
-                map[s.p.i + 1][s.p.j] = '-';
-            } else if (input.charAt(s.regexIndex) == 'W') {
-                q.add(new State(s.p.i, s.p.j - 2, s.regexIndex + 1));
-                map[s.p.i][s.p.j - 1] = '|';
-            } else if (input.charAt(s.regexIndex) == '(') {
-                int openParen = 0;
-                for (int cur = s.regexIndex; cur < input.length(); ++cur) {
-                    char c = input.charAt(cur);
-                    if (c == '(') ++openParen;
-                    else if(c == ')') --openParen;
-                    else if (openParen == 0) break;
-                    if ((c == '(' || c == '|') && openParen == 1) {
-                        q.add(new State(s.p.i, s.p.j, cur + 1));
-                    }
-                }
-            } else if (input.charAt(s.regexIndex) == '|') {
-                int openParen = 1;
-                for (int cur = s.regexIndex + 1; cur < input.length(); ++cur) {
-                    char c = input.charAt(cur);
-                    if (c == '(') ++openParen;
-                    else if(c == ')') --openParen;
-                    if (c == ')' && openParen == 0) {
-                        q.add(new State(s.p.i, s.p.j, cur + 1));
-                        break;
-                    }
-                }
-            } else if (input.charAt(s.regexIndex) == ')') {
-                q.add(new State(s.p.i, s.p.j, s.regexIndex + 1));
-            }
-        }
-        q.clear();
+        Position start = new Position(SIZE / 2, SIZE / 2);
+        map[start.i][start.j] = 'X';
+        runRegex(map, input, 1, start);
         for (int i = 0; i < SIZE; i++) for (int j = 0; j < SIZE; j++) if (map[i][j] == '?') map[i][j] = '#';
-        return farthestRoomViaBfs(map, new Position(SIZE / 2, SIZE / 2));
+        return farthestRoom(map, start);
     }
 
-    private String farthestRoomViaBfs(char[][] map, Position start){
-        Deque<Position> q;
-        Deque<Position> next = new ArrayDeque<>();
+    private int runRegex(char[][] map, String str, int strIdx, Position p) {
+        Position curP = new Position(p.i, p.j);
+        boolean openPar = false;
+        for (int cur = strIdx; cur < str.length(); cur++) {
+            initPosition(map, curP);
+            char c = str.charAt(cur);
+            int dir = c == 'N' || c == 'W' ? -1 : 1;
+            if (c == 'N' || c == 'S') {
+                map[curP.i + dir][curP.j] = '-';
+                curP.i += 2 * dir;
+            } else if (c == 'E' || c == 'W') {
+                map[curP.i][curP.j + dir] = '|';
+                curP.j += 2 * dir;
+            } else if (c == '(' || openPar && c == '|') {
+                cur = runRegex(map, str, cur + 1, curP);
+                openPar = str.charAt(cur) == '|';
+                if (openPar) --cur;
+            } else if (c == '|' || c == ')') return cur;
+        }
+        return str.length();
+    }
+
+    private void initPosition(char[][] map, Position p) {
+        getSurroundingPositions(p).forEach(curP -> {
+            if ((p.i == curP.i || p.j == curP.j) && map[curP.i][curP.j] == ' ') map[curP.i][curP.j] = '?';
+            else if ((p.i != curP.i && p.j != curP.j)) map[curP.i][curP.j] = '#';
+        });
+    }
+
+    private String farthestRoom(char[][] map, Position start) {
+        Deque<Position> q, next = new ArrayDeque<>();
         next.add(start);
         int count = -1;
         int countAtLeast1000 = 0;
@@ -96,11 +80,9 @@ public class D20_ARegularMap {
                 if (map[p.i][p.j] == '.') continue;
                 map[p.i][p.j] = '.';
                 if (count >= 1000) ++countAtLeast1000;
-                for (Position sp : getSurrondingPositions(p)) {
-                    if (map[sp.i][sp.j] != '|' && map[sp.i][sp.j] != '-') continue;
-                    int iDiff = sp.i - p.i;
-                    int jDiff = sp.j - p.j;
-                    Position np = new Position(p.i + 2 * iDiff, p.j + 2 * jDiff);
+                for (Position sp : getSurroundingPositions(p)) {
+                    if (map[sp.i][sp.j] == '#') continue;
+                    Position np = new Position(p.i + 2 * (sp.i - p.i), p.j + 2 * (sp.j - p.j));
                     if (map[np.i][np.j] == '.') continue;
                     next.push(np);
                 }
@@ -109,7 +91,7 @@ public class D20_ARegularMap {
         return count + " " + countAtLeast1000;
     }
 
-    private List<Position> getSurrondingPositions(Position p) {
+    private List<Position> getSurroundingPositions(Position p) {
         List<Position> positions = new ArrayList<>();
         for (int i = p.i - 1; i <= p.i + 1; i++) {
             for (int j = p.j - 1; j <= p.j + 1; j++) {
@@ -120,43 +102,12 @@ public class D20_ARegularMap {
         return positions;
     }
 
-    private static class State {
-        Position p;
-        int regexIndex;
-
-        public State(int i, int j, int regexIndex) {
-            this.p = new Position(i, j);
-            this.regexIndex = regexIndex;
-        }
-
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            State state = (State) o;
-            return p.i == state.p.i &&
-                    p.j == state.p.j &&
-                    regexIndex == state.regexIndex;
-        }
-
-        public int hashCode() {
-            return Objects.hash(p.i, p.j, regexIndex);
-        }
-
-        public String toString() {
-            return p + "|" + regexIndex;
-        }
-    }
-
     private static class Position {
         int i, j;
 
-        public Position(int i, int j) {
+        Position(int i, int j) {
             this.i = i;
             this.j = j;
-        }
-
-        public String toString() {
-            return i + "," + j;
         }
     }
 }
