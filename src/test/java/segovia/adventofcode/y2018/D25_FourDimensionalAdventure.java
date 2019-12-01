@@ -59,7 +59,7 @@ public class D25_FourDimensionalAdventure {
                 "1,2,2,0\n" +
                 "-1,-2,0,-2"), is(8L));
         List<String> fileInputs = Utils.getInputsFromFiles(this.getClass());
-        assertThat(run(fileInputs.get(0)), is(-5216));
+        assertThat(run(fileInputs.get(0)), is(383L));
     }
 
     private long run(String input) {
