@@ -4,11 +4,12 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import segovia.adventofcode.Utils
-import segovia.adventofcode.toListOfLong
 
 class D01_TheTyrannyOfTheRocketEquation {
 
     private val fileInputs = Utils.getInputsFromFiles(this.javaClass)
+    private fun String.toListOfLong() = this.split(Regex("\\s+")).map(String::toLong)
+
     @Test
     fun testPart1() {
         assertThat(calcFuel(12), `is`(2L))
@@ -31,9 +32,10 @@ class D01_TheTyrannyOfTheRocketEquation {
         assertThat(part2(fileInputs[1]), `is`(5136807L))
     }
 
-    private fun recurseCalcFuel(mass: Long):Long {
+    private fun recurseCalcFuel(mass: Long): Long {
         val fuel = calcFuel(mass)
         return if (fuel > 0) fuel + recurseCalcFuel(fuel) else 0
     }
+
     private fun part2(input: String) = input.toListOfLong().map(::recurseCalcFuel).sum()
 }
