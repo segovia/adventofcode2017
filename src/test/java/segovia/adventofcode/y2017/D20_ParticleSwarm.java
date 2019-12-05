@@ -32,7 +32,6 @@ public class D20_ParticleSwarm {
             ps.add(new Particle(ps.size(), line));
         }
         Particle closest = findClosest(ps, asList(p -> p.acc.norm1(), p -> p.vel.norm1(), p -> p.pos.norm1()));
-        System.out.println("Closest: " + closest);
         List<Collision> collisions = new ArrayList<>();
         for (int i = 0; i < ps.size() - 1; i++) {
             for (int j = i + 1; j < ps.size(); j++) {

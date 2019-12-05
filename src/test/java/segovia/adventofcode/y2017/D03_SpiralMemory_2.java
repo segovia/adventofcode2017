@@ -3,10 +3,9 @@ package segovia.adventofcode.y2017;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 
-import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class D03_SpiralMemory_2 {
 
@@ -57,7 +56,6 @@ public class D03_SpiralMemory_2 {
             }
             cur[0] = prev[0] + cur[1] + cur[cur.length - 1];
             if (cur[0] > input) return cur[0];
-            System.out.println(Arrays.toString(cur));
             prev = cur;
             prevLength = curLength;
         }

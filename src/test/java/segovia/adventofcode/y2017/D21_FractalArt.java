@@ -54,8 +54,6 @@ public class D21_FractalArt {
             }
 
             cur = next;
-//            System.out.println();
-//            print(cur);
         }
         return countHash(cur);
     }

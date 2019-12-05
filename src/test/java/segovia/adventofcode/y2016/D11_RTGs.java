@@ -73,7 +73,6 @@ public class D11_RTGs {
                 }
             }
             ++steps;
-//            System.out.println("step: " + steps);
         }
         return 0;
     }

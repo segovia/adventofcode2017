@@ -22,7 +22,6 @@ public class D05_HowAboutANiceGameOfChess_1 {
             String md5 = doMD5(input + i);
             if (md5.startsWith("00000")) {
                 out.append(md5.charAt(5));
-                System.out.println("Current code: " + out.toString());
             }
         }
         return out.toString();

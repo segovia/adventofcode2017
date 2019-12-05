@@ -26,7 +26,6 @@ public class D05_HowAboutANiceGameOfChess_2 {
                 int pos = posChar - '0';
                 if (out[pos] != null) continue;
                 out[pos] = md5.charAt(6);
-                System.out.println("Current code: " + toString(out));
                 if (isComplete(out)) break;
             }
         }

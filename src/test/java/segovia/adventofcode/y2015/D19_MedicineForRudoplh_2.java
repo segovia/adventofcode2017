@@ -46,30 +46,22 @@ public class D19_MedicineForRudoplh_2 {
     private int shortestPath(Map<String, String> map, int longestKey, String s, Map<String, Integer> best, int len, int startIndex) {
         if (len > largestLen) {
             largestLen = len;
-            System.out.println(len + ": " + s);
         }
         if ("e".equals(s)) {
             if (len < bestLen) {
                 bestLen = len;
-                System.out.println("Len: " + bestLen);
             }
             return 0;
         }
         Integer dist = best.get(s);
         if (dist != null) {
             ++hits;
-            if (hits % 1000000 == 0) {
-                System.out.println(s);
-            }
             if (dist != Integer.MAX_VALUE && len + dist < bestLen) {
                 bestLen = len + dist;
-                System.out.println("Better Len: " + bestLen);
             }
             return dist;
         }
         dist = Integer.MAX_VALUE;
-        if (len > 220) System.out.println("too much");
-//        System.out.println(s);
         for (int i = startIndex; i < s.length(); i++) {
             StringBuilder sb = new StringBuilder();
             for (int j = 0; j < longestKey && i + j < s.length(); j++) {
@@ -85,7 +77,6 @@ public class D19_MedicineForRudoplh_2 {
                                           Math.max(0, i - longestKey));
                 if (result != Integer.MAX_VALUE && result + 1 < dist) {
                     dist = result + 1;
-//                    System.out.println(dist);
                 }
             }
         }

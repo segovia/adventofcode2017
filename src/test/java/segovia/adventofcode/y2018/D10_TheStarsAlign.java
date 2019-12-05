@@ -61,12 +61,6 @@ public class D10_TheStarsAlign {
             int yPos = point.yP + point.yV * timeStep - minY;
             map[yPos][xPos] = '#';
         }
-        for (char[] line : map) {
-            for (char c : line) {
-                System.out.print(c == 0 ? ' ' : c);
-            }
-            System.out.println();
-        }
     }
 
     private static final Pattern PATTERN = Pattern.compile(

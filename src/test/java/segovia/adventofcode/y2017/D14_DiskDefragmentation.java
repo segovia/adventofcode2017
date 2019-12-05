@@ -41,7 +41,6 @@ public class D14_DiskDefragmentation {
             String knotHash = this.knotHash.run(input + "-" + i);
             HexToStringResult hexToStringResult = hexToBinaryString(knotHash);
             totalBitCount += hexToStringResult.bitCount;
-            System.out.println(hexToStringResult.binaryString);
         }
         return totalBitCount;
     }

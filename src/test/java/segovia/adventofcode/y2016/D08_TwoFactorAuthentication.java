@@ -24,7 +24,6 @@ public class D08_TwoFactorAuthentication {
         long[] display = new long[HEIGHT];
         String[] lines = input.split("\\n");
         for (String line : lines) {
-            System.out.println(line);
             String[] tokens = line.split(" ");
             if ("rect".equals(tokens[0])) {
                 int[] ab = Utils.toIntArray(tokens[1].split("x"));
@@ -50,7 +49,6 @@ public class D08_TwoFactorAuthentication {
                     }
                 }
             }
-            print(display);
         }
         int count = 0;
         for (int i = 0; i < HEIGHT; i++) count += Long.bitCount(display[i]);
@@ -63,14 +61,4 @@ public class D08_TwoFactorAuthentication {
         return (input << offset) & mask | leftSide;
     }
 
-    private void print(long[] display) {
-        for (long line : display) {
-            System.out.println(new StringBuilder(String.format("%" + WIDTH + "s", Long.toBinaryString(line))
-                                                         .replace('0', ' ')
-                                                         .replace('1', '*'))
-                                       .reverse()
-                                       .toString()
-            );
-        }
-    }
 }

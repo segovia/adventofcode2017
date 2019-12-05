@@ -35,11 +35,6 @@ public class D22_GridComputing_2 {
         int count = 0;
         // could go in straight line?
         int startIdx = width - 1;
-        for (int i = 1; i < width - 2; i++) {
-            if (size[i] < used[startIdx]) System.out.println("Cannot pass through: " + i);
-        }
-
-//        print(width, size, used);
         for (int target = startIdx - 1; target >= 0; target--) {
             int source = target + 1;
             if (avail(size, used, target) < used[source]) {
@@ -110,19 +105,6 @@ public class D22_GridComputing_2 {
                 break;
         }
         return cur;
-    }
-
-    @SuppressWarnings("unused")
-    private void print(int width, int[] size, int[] used) {
-        int height = size.length / width;
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                int cur = i * width + j;
-                System.out.print(String.format("%3d/%3d\t", used[cur], size[cur]));
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 
     private int avail(int[] size, int[] used, int i) {

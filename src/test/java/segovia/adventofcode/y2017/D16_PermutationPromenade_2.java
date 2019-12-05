@@ -32,10 +32,7 @@ public class D16_PermutationPromenade_2 {
                 break;
             }
         }
-        System.out.println(dancers);
-        System.out.println(loop);
         int actualNeeded = reps % loop;
-        System.out.println(actualNeeded);
         for (int i = 0; i < actualNeeded; i++) {
             run(dancers, ops);
         }

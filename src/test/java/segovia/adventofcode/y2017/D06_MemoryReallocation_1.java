@@ -22,7 +22,6 @@ public class D06_MemoryReallocation_1 {
         Set<Object> set = new HashSet<>();
         set.add(toList(nums));
         for (int count = 1; true; ++count) {
-            System.out.println(Arrays.toString(nums));
             int curLargest = 0;
             for (int i = 1; i < nums.length; i++) if (nums[curLargest] < nums[i]) curLargest = i;
             int rest = nums[curLargest] % nums.length;

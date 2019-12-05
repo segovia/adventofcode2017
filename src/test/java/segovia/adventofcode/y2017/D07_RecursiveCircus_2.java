@@ -62,11 +62,7 @@ public class D07_RecursiveCircus_2 {
         if (allSame) {
             return weight * children.size() + weightMap.get(id);
         }
-        for (String child : children) {
-            System.out.println(weightMap.get(child) + ": " + getWeightSum(child, weightMap, childMap));
-        }
         if (children.size() == 2) {
-            System.out.println("Only 2 children, we are unsure which child is wrong.");
             int diff = weights.get(0) - weights.get(1);
             return -(weightMap.get(children.get(0)) - diff);
         }
