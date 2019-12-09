@@ -8,52 +8,38 @@ import segovia.adventofcode.Utils
 class D02_1202ProgramAlarm {
 
     private val fileInputs = Utils.getInputsFromFiles(this.javaClass)
-    private fun String.toIntArray() = this.split(",").map(String::toInt).toIntArray()
+    private fun String.toLongArray() = this.split(",").map(String::toLong).toLongArray()
 
     @Test
     fun test() {
-        testOps(intArrayOf(1, 0, 0, 0, 99), intArrayOf(2, 0, 0, 0, 99))
-        testOps(intArrayOf(2, 3, 0, 3, 99), intArrayOf(2, 3, 0, 6, 99))
-        testOps(intArrayOf(2, 4, 4, 5, 99, 0), intArrayOf(2, 4, 4, 5, 99, 9801))
-        testOps(intArrayOf(1, 1, 1, 4, 99, 5, 6, 0, 99), intArrayOf(30, 1, 1, 4, 2, 5, 6, 0, 99))
-        testOps(intArrayOf(1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50), intArrayOf(3500, 9, 10, 70, 2, 3, 11, 0, 99, 30, 40, 50))
-        assertThat(part1(fileInputs[0]), `is`(4576384))
-        assertThat(part2(fileInputs[0]), `is`(5398))
+        testOps(longArrayOf(1, 0, 0, 0, 99), longArrayOf(2, 0, 0, 0, 99))
+        testOps(longArrayOf(2, 3, 0, 3, 99), longArrayOf(2, 3, 0, 6, 99))
+        testOps(longArrayOf(2, 4, 4, 5, 99, 0), longArrayOf(2, 4, 4, 5, 99, 9801))
+        testOps(longArrayOf(1, 1, 1, 4, 99, 5, 6, 0, 99), longArrayOf(30, 1, 1, 4, 2, 5, 6, 0, 99))
+        testOps(longArrayOf(1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50), longArrayOf(3500, 9, 10, 70, 2, 3, 11, 0, 99, 30, 40, 50))
+        assertThat(part1(fileInputs[0]), `is`(4576384L))
+        assertThat(part2(fileInputs[0]), `is`(5398L))
     }
 
-    private fun testOps(input: IntArray, output: IntArray) {
-        doOps(input)
-        assertThat(input, `is`(output))
+    private fun testOps(input: LongArray, output: LongArray) {
+        assertThat(IntCodeComputer(input).run().memory.copyOf(output.size), `is`(output))
     }
 
-    private fun doOp(arr: IntArray, offset: Int): Boolean {
-        val op = arr[offset]
-        if (op == 99) return false
-        val a = arr[arr[offset + 1]]
-        val b = arr[arr[offset + 2]]
-        arr[arr[offset + 3]] = if (op == 1) a + b else a * b
-        return true
+    private fun LongArray.setInput(noun: Long, verb: Long) : LongArray {
+        this[1] = noun
+        this[2] = verb
+        return this
     }
 
-    private fun doOps(arr: IntArray) {
-        var offset = 0
-        while (doOp(arr, offset)) offset += 4
-    }
+    private fun runProgram(program: LongArray) = IntCodeComputer(program).run().memory[0]
 
-    private fun runProgram(program: IntArray, noun: Int, verb: Int): Int {
-        program[1] = noun
-        program[2] = verb
-        doOps(program)
-        return program[0]
-    }
+    private fun part1(input: String) = runProgram(input.toLongArray().setInput(12, 2))
 
-    private fun part1(input: String) = runProgram(input.toIntArray(), 12, 2)
-
-    private fun part2(input: String): Int {
-        val program = input.toIntArray()
-        for (i in 0..99)
-            for (j in 0..99)
-                if (runProgram(program.copyOf(), i, j) == 19690720)
+    private fun part2(input: String): Long {
+        val program = input.toLongArray()
+        for (i in 0..99L)
+            for (j in 0..99L)
+                if (runProgram(program.copyOf().setInput(i, j)) == 19690720L)
                     return 100 * i + j
         throw RuntimeException("Could not find answer")
     }

@@ -118,4 +118,10 @@ public class Utils {
         arr[a] = arr[b];
         arr[b] = aux;
     }
+
+    public static void swap(long[] arr, int a, int b) {
+        long aux = arr[a];
+        arr[a] = arr[b];
+        arr[b] = aux;
+    }
 }

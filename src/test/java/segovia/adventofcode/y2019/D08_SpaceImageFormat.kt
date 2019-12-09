@@ -35,12 +35,18 @@ class D08_SpaceImageFormat {
         val final = (0 until pixelsPerLayer).map { index ->
             (index until arr.size step pixelsPerLayer).map { arr[it] }.find { it != 2 } ?: 2
         }
+//        printResult(final)
+        return final.sum()
+    }
+
+    // Used to check result
+    @Suppress("unused")
+    private fun printResult(final: List<Int>) {
         for (i in 0 until pixelsPerLayer) {
             val pixel = final[i]
             print(if (pixel == 1) '#' else ' ')
             if (i % width == width - 1) println()
         }
-        return final.sum()
     }
 
 }
